@@ -29,7 +29,11 @@ num_classes = 10
 num_epochs = 2
 
 # Data transformers
-train_transform = transforms([transforms.Resize()])
+train_transform = transforms([transforms.Resize((28,28)),
+                              transforms.ToTensor(),
+                              transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])])
+
+
 
 
 
