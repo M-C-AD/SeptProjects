@@ -9,7 +9,9 @@ import torchvision.datasets as datasets
 import torchvision.transforms as transforms
 
 data_dir = './data/Cat_Dog_data'
-print(data_dir)
+print(os.listdir(data_dir))
+classes = os.listdir(data_dir + '/train')
+print(classes)
 
 #Set Device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -26,6 +28,8 @@ num_layers = 2
 num_classes = 10
 num_epochs = 2
 
+# Data transformers
+train_transform = transforms([transforms.Resize()])
 
 
 
