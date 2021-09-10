@@ -29,14 +29,24 @@ num_classes = 10
 num_epochs = 2
 
 # Data transformers
-train_transform = transforms([transforms.Resize((28,28)),
+train_transform = transforms([transforms.Resize(28),
                               transforms.ToTensor(),
                               transforms.Normalize([0.5, 0.5, 0.5],
                                                    [0.5, 0.5, 0.5])])
-test_transform = transforms(transforms.ToTensor(),
+test_transform = transforms([transforms.ToTensor(),
                             transforms.Normalize([0.5, 0.5, 0.5],
-                                                 [0.5, 0.5, 0.5]))
+                                                 [0.5, 0.5, 0.5])])
 
+#Data Transformers
+train_data = datasets.ImageFolder(data_dir + 'train', transform=train_transform)
+test_data = datasets.ImageFolder(data_dir + 'test', transform=test_transform)
+
+#Load data
+train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
+test_loader = DataLoader(test_data, batch_size=batch_size)
+
+print(train_loader)
+print(test_loader)
 
 
 
