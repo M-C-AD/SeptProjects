@@ -6,8 +6,8 @@ import torch.optim as optim
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
-import torchvision.datasets as datasets
-import torchvision.transforms as transforms
+# import torchvision.datasets as datasets
+# import torchvision.transforms as transforms
 
 data_dir = './data/Cat_Dog_data'
 print(os.listdir(data_dir))
