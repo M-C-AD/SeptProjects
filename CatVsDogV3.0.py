@@ -6,11 +6,10 @@ import torch.optim as optim
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
-# import torchvision.datasets as datasets
-# import torchvision.transforms as transforms
 
 data_dir = './data/Cat_Dog_data'
 print(os.listdir(data_dir))
+
 classes = os.listdir(data_dir + '/train')
 print(classes)
 
@@ -30,29 +29,19 @@ num_classes = 10
 num_epochs = 2
 
 # Data transformers
-train_transform = transforms([transforms.Resize(28),
-                              transforms.ToTensor(),
-                              transforms.Normalize([0.5, 0.5, 0.5],
-                                                   [0.5, 0.5, 0.5])])
-test_transform = transforms([transforms.ToTensor(),
-                            transforms.Normalize([0.5, 0.5, 0.5],
-                                                 [0.5, 0.5, 0.5])])
+train_transform = transforms.Compose([transforms.Resize((28, 28)),
+                                      transforms.ToTensor(),
+                                      transforms.Normalize([0.5, 0.5, 0.5],
+                                                           [0.5, 0.5, 0.5])])
+test_transform = transforms.Compose([transforms.ToTensor(),
+                                     transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])])
 
-#Data Transformers
-train_data = datasets.ImageFolder(data_dir + 'train', transform=train_transform)
-test_data = datasets.ImageFolder(data_dir + 'test', transform=test_transform)
+train_data = datasets.ImageFolder(data_dir + '/train', transform=train_transform)
+test_data = datasets.ImageFolder(data_dir + '/test', transform=test_transform)
 
 #Load data
-train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
-test_loader = DataLoader(test_data, batch_size=batch_size)
+train_loader = DataLoader(train_data, batch_size= batch_size, shuffle=True)
+test_loader = DataLoader(test_data, batch_size= batch_size)
 
 print(train_loader)
 print(test_loader)
-
-
-
-
-
-
-
-
