@@ -59,7 +59,14 @@ class model(nn.Module):
 
     def forward(self, x):
         x = self.pool(F.relu(self.conV1(x)))
-        x
+        x = self.pool(F.relu(self.conV2(x)))
+        x = x.view(x.shape[0], -1)
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+
+
 
 
 
