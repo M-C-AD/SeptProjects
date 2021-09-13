@@ -6,6 +6,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
+import matplotlib.pyplot as plt
 
 data_dir = './data/Cat_Dog_data'
 print(os.listdir(data_dir))
@@ -45,3 +46,24 @@ test_loader = DataLoader(test_data, batch_size= batch_size)
 
 print(train_loader)
 print(test_loader)
+
+class model(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.conV1 = nn.Conv2d(3, 32, 3)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.conV2 = nn.Conv2d(32, 16, 3)
+        self.fc1 = nn.Linear(16*11*11, 120)
+        self.fc2 = nn.Linear(120, 84)
+        self.fc3 = nn.Linear(84, 2)
+
+    def forward(self, x):
+        x = self.pool(F.relu(self.conV1(x)))
+        x
+
+
+
+
+
+
+
