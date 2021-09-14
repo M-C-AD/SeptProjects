@@ -6,6 +6,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
+import matplotlib
 import matplotlib.pyplot as plt
 
 data_dir = './data/Cat_Dog_data'
@@ -49,7 +50,17 @@ print(test_loader)
 
 img, label = train_data[0]
 print(img.shape, label)
+print(train_data.classes)
 print(img)
+
+def show_example(img, label):
+    print('Label:', train_data.classes[label], "(" + str(label) + ")")
+    plt.imshow(img.permute(1, 2, 0))
+    plt.show()
+
+img, label = train_data[0]
+show_example(img, label)
+
 
 class CDNet(nn.Module):
     def __init__(self):
