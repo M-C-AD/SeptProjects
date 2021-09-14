@@ -47,9 +47,13 @@ test_loader = DataLoader(test_data, batch_size= batch_size)
 print(train_loader)
 print(test_loader)
 
-class model(nn.Module):
+img, label = train_data[0]
+print(img.shape, label)
+print(img)
+
+class CDNet(nn.Module):
     def __init__(self):
-        super().__init__()
+        super(CDNet, self).__init__()
         self.conV1 = nn.Conv2d(3, 32, 3)
         self.pool = nn.MaxPool2d(2, 2)
         self.conV2 = nn.Conv2d(32, 16, 3)
@@ -67,7 +71,9 @@ class model(nn.Module):
         return x
 
 
-
+model = CDNet().to(device)
+loss_func = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
 
 
 
