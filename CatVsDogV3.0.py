@@ -48,7 +48,7 @@ test_Dloader = DataLoader(test_data, batch_size= batch_size)
 print(train_Dloader)
 print(test_Dloader)
 
-
+# Display a grid of the images
 def show_batch(dl):
     for images, labels in dl:
         fig, ax = plt.subplots(figsize=(12, 6))
@@ -66,7 +66,6 @@ plt.show()
 # print(train_data.classes)
 # print(img)
 
-
 # def show_example(img, label):
 #     print('Label:', train_data.classes[label], "(" + str(label) + ")")
 #     plt.imshow(img.permute(1, 2, 0))
@@ -75,6 +74,13 @@ plt.show()
 #
 # img, label = train_data[0]
 # show_example(img, label)
+
+# Base image classification model
+class BaseImageClassificationModel(nn.Module):
+    def train_step(self, batch):
+        images, labels = batch
+        out = self(images)                      # Generate predictions
+        loss = F.cross_entropy(out, labels)     # Calculate loss
 
 
 class CDNet(nn.Module):
@@ -97,8 +103,9 @@ class CDNet(nn.Module):
         return x
 
 
+
 model = CDNet().to(device)
-loss_func = nn.CrossEntropyLoss()
+criterian = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
 
 
