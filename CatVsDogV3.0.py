@@ -19,9 +19,9 @@ print(classes)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # Set Hyperparameters
-#num_workers = 4
+num_workers = 4     # Makes loading of batch easier, ensures all the cores of the CPU used
 batch_size = 64
-# pin_memory = True
+pin_memory = True   # Keeps block of memory saved for each batch
 # load_model = True
 # save_model = True
 # weight_decay = 0.0001
@@ -42,11 +42,11 @@ train_data = datasets.ImageFolder(data_dir + '/train', transform=train_transform
 test_data = datasets.ImageFolder(data_dir + '/test', transform=test_transform)
 
 #Load data
-train_loader = DataLoader(train_data, batch_size= batch_size, shuffle=True)
-test_loader = DataLoader(test_data, batch_size= batch_size)
+train_Dloader = DataLoader(train_data, batch_size= batch_size, shuffle=True)
+test_Dloader = DataLoader(test_data, batch_size= batch_size)
 
-print(train_loader)
-print(test_loader)
+print(train_Dloader)
+print(test_Dloader)
 
 img, label = train_data[0]
 print(img.shape, label)
