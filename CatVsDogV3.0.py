@@ -48,18 +48,20 @@ test_Dloader = DataLoader(test_data, batch_size= batch_size)
 print(train_Dloader)
 print(test_Dloader)
 
-img, label = train_data[0]
-print(img.shape, label)
-print(train_data.classes)
-print(img)
+# img, label = train_data[0]
+# print(img.shape, label)
+# print(train_data.classes)
+# print(img)
 
-def show_example(img, label):
-    print('Label:', train_data.classes[label], "(" + str(label) + ")")
-    plt.imshow(img.permute(1, 2, 0))
-    plt.show()
 
-img, label = train_data[0]
-show_example(img, label)
+# def show_example(img, label):
+#     print('Label:', train_data.classes[label], "(" + str(label) + ")")
+#     plt.imshow(img.permute(1, 2, 0))
+#     plt.show()
+#
+#
+# img, label = train_data[0]
+# show_example(img, label)
 
 
 class CDNet(nn.Module):
