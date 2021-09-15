@@ -4,16 +4,17 @@ import torchvision
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader     # Batch data
+from torchvision.utils import make_grid     # Display images in a grid format
 from torchvision import datasets, transforms
 import matplotlib
 import matplotlib.pyplot as plt
 
 data_dir = './data/Cat_Dog_data'
-print(os.listdir(data_dir))
+# print(os.listdir(data_dir))
 
 classes = os.listdir(data_dir + '/train')
-print(classes)
+# print(classes)
 
 #Set Device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -41,12 +42,24 @@ test_transform = transforms.Compose([transforms.ToTensor(),
 train_data = datasets.ImageFolder(data_dir + '/train', transform=train_transform)
 test_data = datasets.ImageFolder(data_dir + '/test', transform=test_transform)
 
-#Load data
+# Load data
 train_Dloader = DataLoader(train_data, batch_size= batch_size, shuffle=True)
 test_Dloader = DataLoader(test_data, batch_size= batch_size)
-
 print(train_Dloader)
 print(test_Dloader)
+
+
+def show_batch(dl):
+    for images, labels in dl:
+        fig, ax = plt.subplots(figsize=(12, 6))
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.imshow(make_grid(images, nrow=16).permute(1, 2, 0))
+        break
+
+
+show_batch(train_Dloader)
+plt.show()
 
 # img, label = train_data[0]
 # print(img.shape, label)
