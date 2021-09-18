@@ -75,6 +75,7 @@ plt.show()
 # img, label = train_data[0]
 # show_example(img, label)
 
+
 # Base image classification model
 class BaseImageClassificationModel(nn.Module):
     def train_step(self, batch):
@@ -107,30 +108,43 @@ def accuracy(outputs, labels):
     return torch.tensor(torch.sum(preds == labels).item() / len(preds))
 
 
-class CDNet(nn.Module):
+class CDNet(BaseImageClassificationModel):
     def __init__(self):
         super(CDNet, self).__init__()
         self.conV1 = nn.Conv2d(3, 32, 3)
         self.pool = nn.MaxPool2d(2, 2)
         self.conV2 = nn.Conv2d(32, 16, 3)
-        self.fc1 = nn.Linear(16*11*11, 120)
+        self.fc1 = nn.Linear(16*5*5, 120)
         self.fc2 = nn.Linear(120, 84)
         self.fc3 = nn.Linear(84, 2)
 
     def forward(self, x):
         x = self.pool(F.relu(self.conV1(x)))
         x = self.pool(F.relu(self.conV2(x)))
+        # print('pre flattern shape',  x.shape) #************************************************
         x = x.view(x.shape[0], -1)
+        # x = x.view(-1, 16*5*5)
+        # print('X shape', x.shape) #************************************************
         x = F.relu(self.fc1(x))
+        # print('X shape', x.shape) #************************************************
         x = F.relu(self.fc2(x))
         x = self.fc3(x)
         return x
 
 
-
 model = CDNet().to(device)
+
+for images, labels in train_Dloader:
+    print('images.shape', images.shape)
+    print('label', labels[0])
+    print('test 1')
+    out = model(images)
+    print('out[0]', out[0])
+    break
+
 criterian = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
+print(model)
 
 
 
