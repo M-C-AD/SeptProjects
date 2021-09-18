@@ -4,7 +4,7 @@ import torchvision
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
-from torch.utils.data import DataLoader     # Batch data
+from torch.utils.data import DataLoader, random_split  # Batch data
 from torchvision.utils import make_grid     # Display images in a grid format
 from torchvision import datasets, transforms
 import matplotlib
@@ -39,11 +39,19 @@ train_transform = transforms.Compose([transforms.Resize((28, 28)),
 test_transform = transforms.Compose([transforms.ToTensor(),
                                      transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])])
 
-train_data = datasets.ImageFolder(data_dir + '/train', transform=train_transform)
+# train_data = datasets.ImageFolder(data_dir + '/train', transform=train_transform) # original line
+entire_dataset = datasets.ImageFolder(data_dir + '/train', transform=train_transform) # original line
 test_data = datasets.ImageFolder(data_dir + '/test', transform=test_transform)
+random_seed = 42
+torch.manual_seed(random_seed)
+val_size = 5000
+train_size = len(entire_dataset) - val_size
+train_ds, val_ds = random_split(entire_dataset, [train_size, val_size])
+# print('Training ds', len(train_ds), '  Validation ds', len(val_ds)) # ********************************
 
 # Load data
-train_Dloader = DataLoader(train_data, batch_size= batch_size, shuffle=True)
+train_Dloader = DataLoader(train_ds, batch_size= batch_size, shuffle=True)
+validation_Dloader = DataLoader(val_ds, batch_size * 2, num_workers=4, pin_memory=True)
 test_Dloader = DataLoader(test_data, batch_size= batch_size)
 print(train_Dloader)
 print(test_Dloader)
@@ -212,5 +220,7 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.SGD):
     return history
 
 
-
+model = to_device(CDNet(), device)
+evaluate(model, validation_Dloader)
+print(model)
 
