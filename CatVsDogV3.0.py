@@ -137,8 +137,9 @@ model = CDNet().to(device)
 for images, labels in train_Dloader:
     print('images.shape', images.shape)
     print('label', labels[0])
-    print('test 1')
+    # print('test 1') #****************************************
     out = model(images)
+    print('out.shape', out.shape)
     print('out[0]', out[0])
     break
 
