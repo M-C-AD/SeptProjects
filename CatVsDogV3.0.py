@@ -222,6 +222,7 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.SGD):
 
 model = to_device(CDNet(), device)
 evaluate(model, validation_Dloader)
+initial_result = evaluate(model, validation_Dloader)
 print(model)
 
 num_epochs = 10
