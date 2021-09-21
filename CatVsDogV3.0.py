@@ -214,7 +214,7 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.SGD):
         model.train()
         train_losses = []
         for batch in train_loader:
-            loss = model.training_setp(batch)
+            loss = model.train_step(batch)
             train_losses.append(loss)
             loss.backward()
             optimizer.step()
