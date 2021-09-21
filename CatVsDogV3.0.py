@@ -145,21 +145,21 @@ class CDNet(BaseImageClassificationModel):
         return x
 
 
-model = CDNet().to(device)
+# model = CDNet().to(device)
 
-# Quick check of the model
-for images, labels in train_Dloader:
-    print('images.shape', images.shape)
-    print('label', labels[0])
-    # print('test 1') #****************************************
-    out = model(images)
-    print('out.shape', out.shape)
-    print('out[0]', out[0])
-    break
-
-criterian = nn.CrossEntropyLoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
-print(model) #*************************************
+# # Quick check of the model
+# for images, labels in train_Dloader:
+#     print('images.shape', images.shape)
+#     print('label', labels[0])
+#     # print('test 1') #****************************************
+#     out = model(images)
+#     print('out.shape', out.shape)
+#     print('out[0]', out[0])
+#     break
+#
+# criterian = nn.CrossEntropyLoss()
+# optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
+# print(model) #*************************************
 
 
 # Device Management
@@ -192,9 +192,11 @@ class DeviceDataLoader():
         """Number of batches"""
         return len(self.dl)
 
+
 # print(device) # *************************
 train_Dloader = DeviceDataLoader(train_Dloader, device)
-to_device(model, device)
+validation_Dloader = DeviceDataLoader(validation_Dloader, device)
+# to_device(model, device)
 
 
 @torch.no_grad()
