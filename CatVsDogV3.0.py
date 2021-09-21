@@ -54,7 +54,10 @@ train_Dloader = DataLoader(train_ds, batch_size= batch_size, shuffle=True)
 validation_Dloader = DataLoader(val_ds, batch_size * 2) #, num_workers=4, pin_memory=True)
 test_Dloader = DataLoader(test_data, batch_size= batch_size)
 print(train_Dloader)
+print('Validation Loader')
+print(validation_Dloader)
 print(test_Dloader)
+
 
 # Display a grid of the images
 def show_batch(dl):
@@ -67,6 +70,8 @@ def show_batch(dl):
 
 
 show_batch(train_Dloader)
+print('Validation Loader 2nd check')
+show_batch(validation_Dloader)
 plt.show()
 
 # img, label = train_data[0]
