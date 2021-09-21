@@ -104,7 +104,7 @@ class BaseImageClassificationModel(nn.Module):
         acc = accuracy(out, labels)             # Calculate accuracy
         return {'val_loss': loss.detach(), 'val_acc': acc}
 
-    def valadation_epoch_end(self, outputs):
+    def validation_epoch_end(self, outputs):
         batch_losses = [x['val_loss'] for x in outputs]
         epoch_loss = torch.stack(batch_losses).mean()   # Combine losses
         batch_accs = [x['val_acc'] for x in outputs]
