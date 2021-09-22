@@ -210,6 +210,7 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.SGD):
     history = []
     optimizer = opt_func(model.parameters(), lr)
     for epoch in range(epochs):
+
         # Training Phase
         model.train()
         train_losses = []
@@ -219,6 +220,7 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.SGD):
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
+
         # Validation phase
         result = evaluate(model, val_loader)
         result['train_loss'] = torch.stack(train_losses).mean().item()
@@ -245,6 +247,7 @@ def plot_accuracies(history):
     plt.xlabel('epoch')
     plt.ylabel('accuracy')
     plt.title('Accuracy vs. No. of epochs');
+    plt.show()
 
 
 plot_accuracies(history)
@@ -258,6 +261,7 @@ def plot_losses(history):
     plt.ylabel('loss')
     plt.legend(['training', 'Validation'])
     plt.title('Loss vs. No. of epochs');
+    plt.show()
 
 
 plot_losses(history)
