@@ -32,18 +32,16 @@ num_classes = 10
 num_epochs = 2
 
 # Data transformers
-# train_transform = transforms.Compose([transforms.Resize((28, 28)),
-#                                       transforms.ToTensor(),
-#                                       transforms.Normalize([0.5, 0.5, 0.5],
-#                                                            [0.5, 0.5, 0.5])])
-
 train_transform = transforms.Compose([transforms.Resize((28, 28)),
-                                      transforms.ToTensor()])
+                                      transforms.RandomCrop(28, padding=4, padding_mode='reflect'),
+                                      transforms.RandomHorizontalFlip(),
+                                      transforms.ToTensor(),
+                                      transforms.Normalize([0.5, 0.5, 0.5],
+                                                           [0.5, 0.5, 0.5])])
 
-# test_transform = transforms.Compose([transforms.ToTensor(),
-#                                      transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])])
 
-test_transform = transforms.Compose([transforms.ToTensor()])
+test_transform = transforms.Compose([transforms.ToTensor(),
+                                     transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])])
 
 # train_data = datasets.ImageFolder(data_dir + '/train', transform=train_transform) # original line
 entire_dataset = datasets.ImageFolder(data_dir + '/train', transform=train_transform) # original line
