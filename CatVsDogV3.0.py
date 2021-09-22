@@ -35,9 +35,9 @@ num_epochs = 2
 train_transform = transforms.Compose([transforms.Resize((28, 28)),
                                       transforms.RandomCrop(28, padding=4, padding_mode='reflect'),
                                       transforms.RandomHorizontalFlip(),
-                                      transforms.RandomRotation(),
-                                      transforms.RandomResizedCrop(256, scale=(0.5, 0.9), ratio=(1, 1)),
-                                      transforms.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1, hue=0),
+                                      transforms.RandomRotation(20),
+                                      #transforms.RandomResizedCrop(256, scale=(0.5, 0.9), ratio=(1, 1)),
+                                      # transforms.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1, hue=0),
                                       transforms.ToTensor(),
                                       transforms.Normalize([0.5, 0.5, 0.5],
                                                            [0.5, 0.5, 0.5])])
