@@ -148,8 +148,8 @@ class CDNet(BaseImageClassificationModel):
         out = F.relu(self.fc1(out))
         # print('X shape', x.shape) #************************************************
         out = F.relu(self.fc2(out))
-        out = self.fc3(x)
-        return out + x  # Adding x turns this into a residual block, to improve model performance
+        out = self.fc3(out)
+        return out  # Adding x turns this into a residual block, to improve model performance
 
 
 # model = CDNet().to(device)
@@ -241,7 +241,7 @@ evaluate(model, validation_Dloader)
 initial_result = evaluate(model, validation_Dloader)
 print(model)
 
-num_epochs = 10
+num_epochs = 20
 opt_func = torch.optim.Adam
 lr = 0.001
 
