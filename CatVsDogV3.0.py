@@ -139,17 +139,17 @@ class CDNet(BaseImageClassificationModel):
         self.fc3 = nn.Linear(84, 2)
 
     def forward(self, x):
-        x = self.pool(F.relu(self.conV1(x)))
-        x = self.pool(F.relu(self.conV2(x)))
-        # print('pre flattern shape',  x.shape) #************************************************
-        x = x.view(x.shape[0], -1)
-        # x = x.view(-1, 16*5*5)
+        out = self.pool(F.relu(self.conV1(x)))
+        out = self.pool(F.relu(self.conV2(out)))
+        # print('pre flattern shape',  out.shape) #************************************************
+        out = out.view(out.shape[0], -1)
+        # out = out.view(-1, 16*5*5)
+        # print('out shape', out.shape) #************************************************
+        out = F.relu(self.fc1(out))
         # print('X shape', x.shape) #************************************************
-        x = F.relu(self.fc1(x))
-        # print('X shape', x.shape) #************************************************
-        x = F.relu(self.fc2(x))
-        x = self.fc3(x)
-        return x
+        out = F.relu(self.fc2(out))
+        out = self.fc3(x)
+        return out + x  # Adding x turns this into a residual block, to improve model performance
 
 
 # model = CDNet().to(device)
