@@ -238,3 +238,31 @@ lr = 0.001
 
 history = fit(num_epochs, lr, model,train_Dloader, validation_Dloader, opt_func= opt_func)
 
+
+def plot_accuracies(history):
+    accuracies = [x['val_acc'] for x in history]
+    plt.plot(accuracies, '-x')
+    plt.xlabel('epoch')
+    plt.ylabel('accuracy')
+    plt.title('Accuracy vs. No. of epochs');
+
+
+plot_accuracies(history)
+
+def plot_losses(history):
+    train_losses = [x.get('train_loss') for x in history]
+    val_losses = [x['val_loss'] for x in history]
+    plt.plot(train_losses, '-bx')
+    plt.plot(val_losses, '-rx')
+    plt.xlabel('epoch')
+    plt.ylabel('loss')
+    plt.legend(['training', 'Validation'])
+    plt.title('Loss vs. No. of epochs');
+
+
+plot_losses(history)
+
+
+
+
+
