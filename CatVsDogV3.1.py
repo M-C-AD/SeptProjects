@@ -32,7 +32,7 @@ num_classes = 10
 num_epochs = 2
 
 # Data transformers
-train_transform = transforms.Compose([transforms.Resize((28, 28)),
+train_transform = transforms.Compose([transforms.Resize((32, 32)),
                                       # transforms.RandomCrop(28, padding=4, padding_mode='reflect'),
                                       # transforms.RandomHorizontalFlip(),
                                       # transforms.RandomRotation(20),
@@ -128,6 +128,43 @@ def accuracy(outputs, labels):
     return torch.tensor(torch.sum(preds == labels).item() / len(preds))
 
 
+def conv_block(in_channels, out_channels, pool=False):
+    layers = [nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1),
+              nn.BatchNorm2d(out_channels),
+              nn.ReLU(inplace=True)]
+    if pool:
+        layers.append(nn.MaxPool2d(2))
+    return nn.Sequential(*layers)
+
+
+class ResNet9(BaseImageClassificationModel):
+    def __init__(self, in_channels, num_classes):
+        super().__init__()
+
+        self.conv1 = conv_block(in_channels, 64)
+        self.conv2 = conv_block(64, 128, pool=True)
+        self.res1 = nn.Sequential(conv_block(128, 128), conv_block(128, 128))
+
+        self.conv3 = conv_block(128, 256, pool=True)
+        self.conv4 = conv_block(256, 512, pool=True)
+        self.res2 = nn.Sequential(conv_block(512, 512), conv_block(512, 512))
+
+        self.classifier = nn.Sequential(nn.MaxPool2d(4),
+                                        nn.Flatten(),
+                                        nn.Dropout(0.2),
+                                        nn.Linear(512, num_classes))
+
+    def forward(self, xb):
+        out1 = self.conv1(xb)
+        out2 = self.conv2(out1)
+        out3 = self.res1(out2) + out2
+        out4 = self.conv3(out3)
+        out5 = self.conv4(out4)
+        out6 = self.res2(out5) + out5
+        out7 = self.classifier(out6)
+        return out7
+
+
 class CDNet(BaseImageClassificationModel):
     def __init__(self):
         super(CDNet, self).__init__()
@@ -205,6 +242,9 @@ train_Dloader = DeviceDataLoader(train_Dloader, device)
 validation_Dloader = DeviceDataLoader(validation_Dloader, device)
 # to_device(model, device)
 
+# print model
+model = to_device(ResNet9(3, 2), device)
+
 
 @torch.no_grad()
 def evaluate(model, val_loader):
@@ -236,16 +276,20 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.SGD):
     return history
 
 
-model = to_device(CDNet(), device)
-evaluate(model, validation_Dloader)
-initial_result = evaluate(model, validation_Dloader)
-print(model)
+# print model
+model = to_device(ResNet9(3, 2), device)
+print('New Model\n', model)
+
+# model = to_device(CDNet(), device)
+# evaluate(model, validation_Dloader)
+# initial_result = evaluate(model, validation_Dloader)
+# print(model)
 
 num_epochs = 10
 opt_func = torch.optim.Adam
 lr = 0.001
 
-history = fit(num_epochs, lr, model,train_Dloader, validation_Dloader, opt_func= opt_func)
+history = fit(num_epochs, lr, model, train_Dloader, validation_Dloader, opt_func= opt_func)
 
 
 def plot_accuracies(history):
