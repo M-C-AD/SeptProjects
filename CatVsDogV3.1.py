@@ -32,7 +32,7 @@ num_classes = 10
 num_epochs = 2
 
 # Data transformers
-train_transform = transforms.Compose([transforms.Resize((32, 32)),
+train_transform = transforms.Compose([transforms.Resize((28, 28)),
                                       # transforms.RandomCrop(28, padding=4, padding_mode='reflect'),
                                       # transforms.RandomHorizontalFlip(),
                                       # transforms.RandomRotation(20),
@@ -277,13 +277,13 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.SGD):
 
 
 # print model
-model = to_device(ResNet9(3, 2), device)
-print('New Model\n', model)
+# model = to_device(ResNet9(3, 2), device)
+# print('New Model\n', model)
 
 # model = to_device(CDNet(), device)
 # evaluate(model, validation_Dloader)
 # initial_result = evaluate(model, validation_Dloader)
-# print(model)
+print(model)
 
 num_epochs = 10
 opt_func = torch.optim.Adam
