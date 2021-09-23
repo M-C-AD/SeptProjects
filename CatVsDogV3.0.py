@@ -51,7 +51,7 @@ entire_dataset = datasets.ImageFolder(data_dir + '/train', transform=train_trans
 test_data = datasets.ImageFolder(data_dir + '/test', transform=test_transform)
 random_seed = 42
 torch.manual_seed(random_seed)
-val_size = 5000
+val_size = 1000
 train_size = len(entire_dataset) - val_size
 train_ds, val_ds = random_split(entire_dataset, [train_size, val_size])
 # print('Training ds', len(train_ds), '  Validation ds', len(val_ds)) # ********************************
@@ -241,7 +241,7 @@ evaluate(model, validation_Dloader)
 initial_result = evaluate(model, validation_Dloader)
 print(model)
 
-num_epochs = 20
+num_epochs = 10
 opt_func = torch.optim.Adam
 lr = 0.001
 
