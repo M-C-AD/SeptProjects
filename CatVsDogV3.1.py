@@ -149,7 +149,7 @@ class ResNet9(BaseImageClassificationModel):
         self.conv4 = conv_block(256, 512, pool=True)
         self.res2 = nn.Sequential(conv_block(512, 512), conv_block(512, 512))
 
-        self.classifier = nn.Sequential(nn.MaxPool2d(4),
+        self.classifier = nn.Sequential(nn.MaxPool2d(2),
                                         nn.Flatten(),
                                         nn.Dropout(0.2),
                                         nn.Linear(512, num_classes))
@@ -277,7 +277,7 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.SGD):
 
 
 # print model
-# model = to_device(ResNet9(3, 2), device)
+model = to_device(ResNet9(3, 2), device)
 # print('New Model\n', model)
 
 # model = to_device(CDNet(), device)
@@ -304,6 +304,7 @@ def plot_accuracies(history):
 plot_accuracies(history)
 
 def plot_losses(history):
+    
     train_losses = [x.get('train_loss') for x in history]
     val_losses = [x['val_loss'] for x in history]
     plt.plot(train_losses, '-bx')
