@@ -62,9 +62,11 @@ train_ds, val_ds = random_split(entire_dataset, [train_size, val_size])
 train_Dloader = DataLoader(train_ds, batch_size= batch_size, shuffle=True)
 validation_Dloader = DataLoader(val_ds, batch_size * 2) #, num_workers=4, pin_memory=True)
 test_Dloader = DataLoader(test_data, batch_size= batch_size)
+print('Training Loader\n')
 print(train_Dloader)
-print('Validation Loader')
+print('Validation Loader\n')
 print(validation_Dloader)
+print('Test Loader\n')
 print(test_Dloader)
 
 
