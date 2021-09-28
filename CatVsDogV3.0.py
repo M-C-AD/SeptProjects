@@ -309,3 +309,12 @@ print('Label', label, ', Predicted:', predict_image(img, label))
 
 test_results = evaluate(model, test_Dloader)
 print(test_results)
+
+torch.save(model.state_dict(), 'catVdog_CNN_28-09-21.pth')
+print(model.state_dict())
+
+# To instantiate a new model with these weights
+model2 = CDNet()
+model2.load_state_dict(torch.load('catVdog_CNN_28-09-21.pth'))
+print(model2.state_dict())
+
