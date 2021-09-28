@@ -237,7 +237,7 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.SGD):
 
 
 model = to_device(CDNet(), device)
-evaluate(model, validation_Dloader)
+# evaluate(model, validation_Dloader)
 initial_result = evaluate(model, validation_Dloader)
 print(model)
 
@@ -257,7 +257,8 @@ def plot_accuracies(history):
     plt.show()
 
 
-plot_accuracies(history)
+plt.show(plot_accuracies(history)
+
 
 def plot_losses(history):
     train_losses = [x.get('train_loss') for x in history]
@@ -271,7 +272,7 @@ def plot_losses(history):
     plt.show()
 
 
-plot_losses(history)
+plt.show(plot_losses(history))
 
 
 
