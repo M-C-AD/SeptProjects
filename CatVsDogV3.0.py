@@ -289,6 +289,7 @@ print('Label', label)
 
 
 def predict_image(img, model):
+    # Convert to a batch of 1
     xb = img.unsqueeze(0)
     yb = model(xb)
     _, preds = torch.max(yb, dim=1)
@@ -298,17 +299,24 @@ def predict_image(img, model):
 img, label = test_data[10]
 plt.imshow(img[0], cmap='gray')
 print('Label', label, ', Predicted:', predict_image(img, label))
+plt.show()
 
 img, label = test_data[100]
 plt.imshow(img[0], cmap='gray')
 print('Label', label, ', Predicted:', predict_image(img, label))
+plt.show()
 
 img, label = test_data[957]
 plt.imshow(img[0], cmap='gray')
 print('Label', label, ', Predicted:', predict_image(img, label))
+plt.show()
 
 test_results = evaluate(model, test_Dloader)
 print(test_results)
+
+test_loader = DeviceDataLoader(DataLoader(test_data, batch_size*2), device)
+result = evaluate(model, test_loader)
+print('Batch test results\n', result)
 
 torch.save(model.state_dict(), 'catVdog_CNN_28-09-21.pth')
 print(model.state_dict())
