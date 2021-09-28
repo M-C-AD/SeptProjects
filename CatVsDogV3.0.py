@@ -48,7 +48,9 @@ test_transform = transforms.Compose([transforms.ToTensor(),
 
 # train_data = datasets.ImageFolder(data_dir + '/train', transform=train_transform) # original line
 entire_dataset = datasets.ImageFolder(data_dir + '/train', transform=train_transform) # original line
-test_data = datasets.ImageFolder(data_dir + '/test', transform=test_transform)
+test_data = datasets.ImageFolder(data_dir + '/test',
+                                 train=False,
+                                 transform=test_transform)
 random_seed = 42
 torch.manual_seed(random_seed)
 val_size = 1000
@@ -236,18 +238,6 @@ def fit(epochs, lr, model, train_loader, val_loader, opt_func=torch.optim.SGD):
     return history
 
 
-model = to_device(CDNet(), device)
-# evaluate(model, validation_Dloader)
-initial_result = evaluate(model, validation_Dloader)
-print(model)
-
-num_epochs = 10
-opt_func = torch.optim.Adam
-lr = 0.001
-
-history = fit(num_epochs, lr, model,train_Dloader, validation_Dloader, opt_func= opt_func)
-
-
 def plot_accuracies(history):
     accuracies = [x['val_acc'] for x in history]
     plt.plot(accuracies, '-x')
@@ -255,9 +245,6 @@ def plot_accuracies(history):
     plt.ylabel('accuracy')
     plt.title('Accuracy vs. No. of epochs');
     plt.show()
-
-
-plt.show(plot_accuracies(history)
 
 
 def plot_losses(history):
@@ -272,9 +259,53 @@ def plot_losses(history):
     plt.show()
 
 
-plt.show(plot_losses(history))
+model = to_device(CDNet(), device)
+# evaluate(model, validation_Dloader)
+initial_result = evaluate(model, validation_Dloader)
+# print(model)
+
+num_epochs = 5
+opt_func = torch.optim.Adam
+lr = 0.001
+
+history1 = fit(num_epochs, lr, model,train_Dloader, validation_Dloader, opt_func= opt_func)
+plot_accuracies(history1)
+plot_losses(history1)
+history2 = fit(5, 0.001, model,train_Dloader, validation_Dloader, opt_func= opt_func)
+history3 = fit(5, 0.001, model,train_Dloader, validation_Dloader, opt_func= opt_func)
+history4 = fit(5, 0.001, model,train_Dloader, validation_Dloader, opt_func= opt_func)
+
+history = [initial_result] + history1 + history2 + history3 + history4
+accuracies = [initial_result['val_acc'] for intial_result in history]
+plt.plot(accuracies, '-x')
+plt.xlabel('epoch')
+plt.ylabel('accuracy')
+plt.title('Accuracy vs. No. of epochs')
+
+img, label = test_data[0]
+plt.imshow(img[0], cmap='gray')
+print('Shape', img.shape)
+print('Label', label)
 
 
+def predict_image(img, model):
+    xb = img.unsqueeze(0)
+    yb = model(xb)
+    _, preds = torch.max(yb, dim=1)
+    return preds[0].item()
 
 
+img, label = test_data[10]
+plt.imshow(img[0], cmap='gray')
+print('Label', label, ', Predicted:', predict_image(img, label))
 
+img, label = test_data[100]
+plt.imshow(img[0], cmap='gray')
+print('Label', label, ', Predicted:', predict_image(img, label))
+
+img, label = test_data[957]
+plt.imshow(img[0], cmap='gray')
+print('Label', label, ', Predicted:', predict_image(img, label))
+
+test_results = evaluate(model, test_Dloader)
+print(test_results)
