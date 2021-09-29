@@ -320,6 +320,7 @@ test_loader = DeviceDataLoader(DataLoader(test_data, batch_size*2), device)
 result = evaluate(model, test_loader)
 print('Batch test results\n', result)
 
+# Save the model to use another time
 torch.save(model.state_dict(), 'catVdog_CNN_28-09-21.pth')
 print(model.state_dict())
 
@@ -327,4 +328,6 @@ print(model.state_dict())
 model2 = CDNet()
 model2.load_state_dict(torch.load('catVdog_CNN_28-09-21.pth'))
 print(model2.state_dict())
+
+
 
