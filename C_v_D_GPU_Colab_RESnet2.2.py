@@ -243,7 +243,7 @@ class ResNet9(BaseImageClassificationModel):
 
         self.classifier = nn.Sequential(nn.MaxPool2d(2),
                                         nn.Flatten(),
-                                        nn.Dropout(0.2),
+                                        nn.Dropout(0.5),
                                         nn.Linear(512, num_classes))
 
     def forward(self, xb):
