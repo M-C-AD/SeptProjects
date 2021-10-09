@@ -40,9 +40,10 @@ def import_images(folder,target):
             images.append([img,target])
     return images
 
-bengin = import_images(data_dir + "/benign/",0)
-# malignant = import_images("../input/breast-ultrasound-images-dataset/Dataset_BUSI_with_GT/malignant/",1)
-# normal = import_images("../input/breast-ultrasound-images-dataset/Dataset_BUSI_with_GT/normal/",2)
+
+bengin = import_images(data_dir + "/benign",0)
+malignant = import_images(data_dir + "/malignant/",1)
+normal = import_images(data_dir + "/normal/",2)
 
 
 
