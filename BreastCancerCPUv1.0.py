@@ -59,7 +59,7 @@ for x, y in full_data:
 print(feature_matrix[0])
 plt.imshow(feature_matrix[0])
 plt.show()
-
+print(label[0])
 
 
 
