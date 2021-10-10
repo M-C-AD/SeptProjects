@@ -44,6 +44,8 @@ def import_images(folder,target):
 bengin = import_images(data_dir + "/benign",0)
 malignant = import_images(data_dir + "/malignant/",1)
 normal = import_images(data_dir + "/normal/",2)
+benign = bengin
+
 
 
 
