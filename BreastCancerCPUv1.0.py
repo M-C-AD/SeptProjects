@@ -46,8 +46,21 @@ malignant = import_images(data_dir + "/malignant/",1)
 normal = import_images(data_dir + "/normal/",2)
 benign.extend(malignant)
 benign.extend(normal)
-plt.imshow(benign[1][0])
+plt.imshow(benign[0][0])
 plt.show()
+
+full_data = benign
+feature_matrix = []
+label = []
+for x, y in full_data:
+    feature_matrix.append(x)
+    label.append(y)
+
+print(feature_matrix[0])
+plt.imshow(feature_matrix[0])
+plt.show()
+
+
 
 
 
