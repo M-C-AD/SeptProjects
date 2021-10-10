@@ -41,10 +41,13 @@ def import_images(folder,target):
     return images
 
 
-bengin = import_images(data_dir + "/benign",0)
+benign = import_images(data_dir + "/benign",0)
 malignant = import_images(data_dir + "/malignant/",1)
 normal = import_images(data_dir + "/normal/",2)
-benign = bengin
+benign.extend(malignant)
+benign.extend(normal)
+plt.imshow(benign[1][0])
+plt.show()
 
 
 
