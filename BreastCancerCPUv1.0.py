@@ -61,7 +61,15 @@ plt.imshow(feature_matrix[0])
 plt.show()
 print(label[0])
 
+X = []
+img_size = 128
 
+for x in feature_matrix:
+    new_array = cv2.resize(x,(img_size, img_size))
+    X.append(new_array)
+
+plt.imshow(X[0])
+plt.show()
 
 
 
