@@ -1,3 +1,4 @@
+import numpy as np
 import os
 import torch
 import torchvision
@@ -70,6 +71,22 @@ for x in feature_matrix:
 
 plt.imshow(X[0])
 plt.show()
+
+X_corrected = []
+for image in X:
+    image = image/255
+    X_corrected.append(image)
+
+plt.imshow(X_corrected[0])
+plt.show()
+print(np.array(X_corrected).shape)
+X_M = np.array(X_corrected)
+print(X_M.shape[1])
+
+print(np.array(X_corrected).shape)
+print(np.array(X_corrected).shape[0])
+print(np.array(X_corrected).shape[1])
+print(np.array(X_corrected).shape[2])
 
 
 
