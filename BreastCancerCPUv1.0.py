@@ -33,6 +33,7 @@ num_layers = 2
 num_classes = 10
 num_epochs = 4
 
+#Function to return an array of grey scale images
 def import_images(folder,target):
     images = []
     for item in os.listdir(folder):
