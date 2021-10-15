@@ -50,7 +50,7 @@ normal = import_images(data_dir + "/normal/",2)
 # Load all images into one array
 benign.extend(malignant)
 benign.extend(normal)
-plt.imshow(benign[1][0])
+plt.imshow(benign[0][0])
 plt.show()
 
 full_data = benign
@@ -79,7 +79,7 @@ X_corrected = []
 for image in X:
     image = image/255
     X_corrected.append(image)
-
+# ********************************************************
 plt.imshow(X_corrected[0])
 plt.show()
 print(np.array(X_corrected).shape)
