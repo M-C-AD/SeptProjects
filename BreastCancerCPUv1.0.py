@@ -17,9 +17,9 @@ import cv2
 # print(os.listdir(data_dir))
 
 data_dir ='C:/Users/Study1/Documents/Programming/Artificial Intelligence/My AI Projects/Datasets/Dataset_BUSI_with_GT'
-print(os.listdir(data_dir))
+# print(os.listdir(data_dir))
 classes = os.listdir(data_dir)
-print(classes)
+# print(classes)
 
 #Set Device
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -50,8 +50,8 @@ normal = import_images(data_dir + "/normal/",2)
 # Load all images into one array
 benign.extend(malignant)
 benign.extend(normal)
-plt.imshow(benign[0][0])
-plt.show()
+# plt.imshow(benign[0][0])
+# plt.show()
 
 full_data = benign
 feature_matrix = []
@@ -62,8 +62,8 @@ for x, y in full_data:
 
 print(feature_matrix[0])
 plt.imshow(feature_matrix[0])
-plt.show()
-print(label[0])
+# plt.show()
+# print(label[0])
 
 X = []
 img_size = 128
