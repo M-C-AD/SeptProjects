@@ -84,14 +84,14 @@ plt.imshow(X_corrected[0])
 plt.show()
 print(np.array(X_corrected).shape)
 X_M = np.array(X_corrected)
-print(X_M.shape[1])
+print(X_M.shape[0])
 
-print(np.array(X_corrected).shape)
-print(np.array(X_corrected).shape[0])
-print(np.array(X_corrected).shape[1])
-print(np.array(X_corrected).shape[2])
-
-X_M_R = X_M.reshape(X_M.shape[0], X_M.shape[1],X_M.shape[2],1)
-print(X_M_R)
+# print(np.array(X_corrected).shape)
+# print(np.array(X_corrected).shape[0])
+# print(np.array(X_corrected).shape[1])
+# print(np.array(X_corrected).shape[2])
+#
+# X_M_R = X_M.reshape(X_M.shape[0], X_M.shape[1],X_M.shape[2],1)
+# print(X_M_R)
 
 
