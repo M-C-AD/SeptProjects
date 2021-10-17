@@ -72,8 +72,8 @@ for x in feature_matrix:
     new_array = cv2.resize(x,(img_size, img_size))
     X.append(new_array)
 
-plt.imshow(X[0])
-plt.show()
+# plt.imshow(X[0])
+# plt.show()
 
 X_corrected = []
 for image in X:
