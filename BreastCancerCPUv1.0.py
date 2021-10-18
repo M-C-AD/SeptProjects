@@ -90,8 +90,37 @@ print(np.array(X_corrected).shape)
 print(np.array(X_corrected).shape[0])
 print(np.array(X_corrected).shape[1])
 print(np.array(X_corrected).shape[2])
-#
-# X_M_R = X_M.reshape(X_M.shape[0], X_M.shape[1],X_M.shape[2],1)
-# print(X_M_R)
+
+X_M_R = X_M.reshape(X_M.shape[0], X_M.shape[1],X_M.shape[2],1)
+print(X_M_R.shape)
+print(X_M_R[2])
+
+#Set Device
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+# Set Hyperparameters
+num_workers = 4     # Makes loading of batch easier, ensures all the cores of the CPU used
+batch_size = 64
+pin_memory = True   # Keeps block of memory saved for each batch
+# load_model = True
+# save_model = True
+# weight_decay = 0.0001
+learning_rate = 0.0001
+num_layers = 2
+num_classes = 10
+num_epochs = 2
+
+# Data transformers
+train_transform = transforms.Compose([transforms.Resize((28, 28)),
+                                      # transforms.RandomCrop(28, padding=4, padding_mode='reflect'),
+                                      # transforms.RandomHorizontalFlip(),
+                                      # transforms.RandomRotation(20),
+                                      #transforms.RandomResizedCrop(256, scale=(0.5, 0.9), ratio=(1, 1)),
+                                      # transforms.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1, hue=0),
+                                      transforms.ToTensor(),
+                                      transforms.Normalize([0.5, 0.5, 0.5],
+                                                           [0.5, 0.5, 0.5])])
 
 
+test_transform = transforms.Compose([transforms.ToTensor(),
+                                     transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])])
