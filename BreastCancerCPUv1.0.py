@@ -124,3 +124,9 @@ train_transform = transforms.Compose([transforms.Resize((28, 28)),
 
 test_transform = transforms.Compose([transforms.ToTensor(),
                                      transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5])])
+
+
+entire_dataset = datasets.ImageFolder(X_M_R, transform=train_transform) # original line
+
+
+X_train, X_test
